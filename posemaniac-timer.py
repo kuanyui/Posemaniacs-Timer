@@ -65,23 +65,23 @@ class TimerWindow(QtGui.QWidget):
             QLabel {color:#fff;}")
         elif self.now == 29:
             self.setStyleSheet("\
-            QPushButton {background-color:#fff; color:#8af;}\
-            TimerWindow {background-color:#8af;}\
-            QLabel {color:#fff;}")
-        elif self.now == 19:
-            self.setStyleSheet("\
             QPushButton {background-color:#fff; color:#49f;}\
             TimerWindow {background-color:#49f;}\
             QLabel {color:#fff;}")
-        elif self.now == 9:
+        elif self.now == 19:
             self.setStyleSheet("\
             QPushButton {background-color:#fff; color:#fa0;}\
             TimerWindow {background-color:#fa0;}\
             QLabel {color:#fff;}")
-        elif self.now == 2:
+        elif self.now == 9:
             self.setStyleSheet("\
             QPushButton {background-color:#fff; color:#f00;}\
-            TimerWindow {background-color:#f00}\
+            TimerWindow {background-color:#f00;}\
+            QLabel {color:#fff;}")
+        elif self.now == 2:
+            self.setStyleSheet("\
+            QPushButton {background-color:#fff; color:#700;}\
+            TimerWindow {background-color:#700}\
             QLabel {color:#fff;}")
 
     def countdown3Init(self):
