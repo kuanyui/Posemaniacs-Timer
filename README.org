@@ -4,9 +4,9 @@
 
 ** What's This?
 
-   [[http://www.posemaniacs.com/thirtysecond][Posemaniacs' Thirty Second Drawing]] is a great site for sharpening your sketching skills. However it lack of a timer to remind you time is about up. So this is why =Posemaniacs-Timer= exists.
+   [[http://www.posemaniacs.com/thirtysecond][Posemaniacs' Thirty Second Drawing]] is a great site for sharpening your sketching skills. However it lacks of a timer to remind you that time is about up.
 
-   =Posemaniacs-Timer= will change its background-color when time passing. So you won't be distracted from concentration due to turning your eyesight to read its second. 
+   =Posemaniacs-Timer= will change its background-color when time passing. So you won't be distracted from concentration due to turning your eyesight to read its seconds.
 
 ** Why?
 
