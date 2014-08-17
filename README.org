@@ -8,6 +8,14 @@
 
    =Posemaniacs-Timer= will change its background-color when time passing. So you won't be distracted from concentration due to turning your eyesight to read its second. 
 
+** Why?
+
+   Because I've drawn a lot of damn bodies without heads.
+
+** Screenshot
+
+   [[https://farm4.staticflickr.com/3873/14760924008_7b16c49585_o.gif]]
+
 ** Requirement
 
    - Python 3
