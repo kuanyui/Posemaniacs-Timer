@@ -1,0 +1,37 @@
+* Posemaniacs-Timer
+
+  A timer for [[http://www.posemaniacs.com/thirtysecond][Posemaniacs]].
+
+** What's This?
+
+   [[http://www.posemaniacs.com/thirtysecond][Posemaniacs' Thirty Second Drawing]] is a great site for sharpening your sketching skills. However it lack of a timer to remind you time is about up. So this is why =Posemaniacs-Timer= exists.
+
+   =Posemaniacs-Timer= will change its background-color when time passing. So you won't be distracted from concentration due to turning your eyesight to read its second. 
+
+** Requirement
+
+   - Python 3
+   - PyQt4
+   - [[https://github.com/SavinaRoja/PyUserInput][PyUserInput]]
+
+#+BEGIN_QUOTE
+   Depending on your platform, you will need the following *python3 modules* for =PyUserInput= to function:
+
+   - /(Linux)/ Xlib
+   - /(Mac)/ Quartz, AppKit
+   - /(Windows)/ pywin32, pyHook
+
+   Take Linux for example, you can install =PyUserInput= via pip:
+
+   #+BEGIN_SRC sh
+   sudo pip install python3-xlib PyUserInput
+   #+END_SRC
+#+END_QUOTE
+
+** Usage Guide
+
+   1. Open [[http://www.posemaniacs.com/thirtysecond][Posemaniacs]] page and =Posemaniacs-Timer=.
+   2. Set seconds & countdown on both interface.
+   3. Press =Start= on =Posemaniacs-Timer=, enter a fullscreen interface.
+   4. Now move your mouse to *START* on Posemaniacs page and click. Timer starts.
+
