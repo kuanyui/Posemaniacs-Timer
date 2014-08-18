@@ -6,11 +6,11 @@
 
    [[http://www.posemaniacs.com/thirtysecond][Posemaniacs' Thirty Second Drawing]] is a great site for sharpening your sketching skills. However it lacks of a timer to remind you that time is about up.
 
-   =Posemaniacs-Timer= will change its background-color when time passing. So you won't be distracted from concentration due to turning your eyesight to read its seconds.
+   =Posemaniacs-Timer= is a simple timer for this, which will change its background-color when time passing. So you can focus on sketching but don't need to turn your eyesight to read its seconds.
 
 ** Why?
 
-   Because I've drawn a lot of damn bodies without heads.
+   Because I've drawn a lot of bodies without heads.
 
 ** Screenshot
 
