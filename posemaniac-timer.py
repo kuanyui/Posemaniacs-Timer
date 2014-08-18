@@ -147,6 +147,10 @@ class ConfigWindow(QtGui.QWidget):
         color: #666;
         ''')
 
+        desktop = QtGui.QApplication.desktop()
+        self.move(desktop.width() / 2 - self.width() * 0.2,
+                  desktop.height() / 2 - self.height() * 0.2,)
+
     def positionSelector(self):
         r = self.radio_buttons.checkedId()
         if r == -2:
@@ -227,6 +231,7 @@ class PositionSelectionUILabel (QtGui.QLabel):
 
             # parent is PositionSelectionUI
             self.parent.callTimerAndRun()
+            self.parent.timer_window.move(pos.x() + 320, pos.y() - 380)
 
         QtGui.QWidget.mousePressEvent(self, event)
         
