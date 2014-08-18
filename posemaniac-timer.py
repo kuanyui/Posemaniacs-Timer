@@ -26,10 +26,13 @@ class TimerWindow(QtGui.QWidget):
         self.setLayout(layout)
         self.resize(400, 400)
 
-    def run(self, sec, countdown):
+    def run(self, sec, countdown3):
         self.sec = sec
-        self.countdown = countdown
+        self.countdownConfig = countdown3
         self.countdown3Init()
+        self.timer = QtCore.QTimer(self)
+        self.timer.timeout.connect(self.update)
+        self.timer.start(1004)  # Magic number
 
     def stop(self):
         self.timer.stop()
@@ -44,61 +47,58 @@ class TimerWindow(QtGui.QWidget):
         TimerWindow {background-color:#fff; border-bottom:10px solid #49f}\
         QLabel {color:#777;}")
         self.now = self.sec
-        self.mainUpdate()
-        self.timer = QtCore.QTimer(self)
-        self.timer.timeout.connect(self.mainUpdate)
-        self.timer.start(1000)
+        self.mode = 'mainCountdown'
+        self.update()
 
-    def mainUpdate(self):
+    def update(self):
         self.label.setText(str(self.now))
-        self.now -= 1
-        if self.now == -1:
-            self.timer.stop()
-            if self.countdown:
-                self.countdown3Init()
-            else:
+        self.now -= 1            
+        if self.now == -1:      # When Time's up
+            if (self.mode == 'countdown3' or # If currently is counting 3 sec
+                self.countdownConfig == False): # If user set not countdown 3 sec
                 self.mainUpdateInit()
-        elif self.now == 60:
-            self.setStyleSheet("\
-            QPushButton {background-color:#fff; color:#af0;}\
-            TimerWindow {background-color:#af0;}\
-            QLabel {color:#fff;}")
-        elif self.now == 29:
-            self.setStyleSheet("\
-            QPushButton {background-color:#fff; color:#49f;}\
-            TimerWindow {background-color:#49f;}\
-            QLabel {color:#fff;}")
-        elif self.now == 19:
-            self.setStyleSheet("\
-            QPushButton {background-color:#fff; color:#fa0;}\
-            TimerWindow {background-color:#fa0;}\
-            QLabel {color:#fff;}")
-        elif self.now == 9:
-            self.setStyleSheet("\
-            QPushButton {background-color:#fff; color:#f00;}\
-            TimerWindow {background-color:#f00;}\
-            QLabel {color:#fff;}")
-        elif self.now == 2:
-            self.setStyleSheet("\
-            QPushButton {background-color:#fff; color:#700;}\
-            TimerWindow {background-color:#700}\
-            QLabel {color:#fff;}")
+            else:
+                self.countdown3Init()
+
+        if self.mode == 'mainCountdown':
+            if self.now == 60:
+                self.setStyleSheet("\
+                QPushButton {background-color:#fff; color:#af0;}\
+                TimerWindow {background-color:#af0;}\
+                QLabel {color:#fff;}")
+            elif self.now == 29:
+                self.setStyleSheet("\
+                QPushButton {background-color:#fff; color:#49f;}\
+                TimerWindow {background-color:#49f;}\
+                QLabel {color:#fff;}")
+            elif self.now == 19:
+                self.setStyleSheet("\
+                QPushButton {background-color:#fff; color:#fa0;}\
+                TimerWindow {background-color:#fa0;}\
+                QLabel {color:#fff;}")
+            elif self.now == 9:
+                self.setStyleSheet("\
+                QPushButton {background-color:#fff; color:#f00;}\
+                TimerWindow {background-color:#f00;}\
+                QLabel {color:#fff;}")
+            elif self.now == 2:
+                self.setStyleSheet("\
+                QPushButton {background-color:#fff; color:#700;}\
+                TimerWindow {background-color:#700}\
+                QLabel {color:#fff;}")
 
     def countdown3Init(self):
         self.setStyleSheet("background-color:#222;color:#eee;")
+        self.mode = 'countdown3'
         self.now = 3
         self.countdown3()
-        self.timer = QtCore.QTimer(self)
-        self.timer.timeout.connect(self.countdown3)
-        self.timer.start(1000)
         
     def countdown3(self):
         self.label.setText(str(self.now))
         self.now -= 1
         if self.now == -1:
-            self.timer.stop()
             # Call main loop
-            self.mainUpdateInit()
+            self.update()
 
 
 class ConfigWindow(QtGui.QWidget):
@@ -127,8 +127,8 @@ class ConfigWindow(QtGui.QWidget):
         layout.addWidget(r90, 1, 2)
         r30.setChecked(True)
         
-        self.countdown = QtGui.QCheckBox("&Countdown")
-        layout.addWidget(self.countdown, 2, 0, 1, 3)
+        self.countdownConfig = QtGui.QCheckBox("&Countdown")
+        layout.addWidget(self.countdownConfig, 2, 0, 1, 3)
 
         startButton = QtGui.QPushButton("&Start")
         layout.addWidget(startButton, 3, 2)
@@ -162,18 +162,18 @@ class ConfigWindow(QtGui.QWidget):
         elif r == -7:
             sec = 90
 
-        if self.countdown.checkState() == 2:
-            countdown = True
+        if self.countdownConfig.checkState() == 2:
+            countdown3 = True
         else:
-            countdown = False
+            countdown3 = False
         
-        self.position_selection_ui = PositionSelectionUI(sec, countdown, self.pos())
+        self.position_selection_ui = PositionSelectionUI(sec, countdown3, self.pos())
         self.close()            # 不太確定會不會有問題
 
 class PositionSelectionUI (QtGui.QWidget):
-    def __init__ (self, sec, countdown, configWindowPos, parent = None):
+    def __init__ (self, sec, countdown3, configWindowPos, parent = None):
         self.sec = sec
-        self.countdown = countdown
+        self.countdownConfig = countdown3
 
         # Create TimerWindow Instance
         self.timer_window = TimerWindow()
@@ -201,7 +201,7 @@ class PositionSelectionUI (QtGui.QWidget):
         self.timer_window.setWindowState(self.timer_window.windowState() & ~QtCore.Qt.WindowMinimized | QtCore.Qt.WindowActive)
         # this will activate the window
         self.timer_window.activateWindow()
-        self.timer_window.run(self.sec, self.countdown)
+        self.timer_window.run(self.sec, self.countdownConfig)
         self.close()
 
 class PositionSelectionUILabel (QtGui.QLabel):
