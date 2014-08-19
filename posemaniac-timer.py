@@ -32,7 +32,7 @@ class TimerWindow(QtGui.QWidget):
         self.countdown3Init()
         self.timer = QtCore.QTimer(self)
         self.timer.timeout.connect(self.update)
-        self.timer.start(1004)  # Magic number
+        self.timer.start(1001)  # Magic number
 
     def stop(self):
         self.timer.stop()
