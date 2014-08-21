@@ -3,6 +3,24 @@
 import sys, time
 from PyQt4 import QtCore, QtGui
 from pymouse import PyMouse
+from pykeyboard import PyKeyboard
+
+class ScreenSaverPreventer(QtGui.QWidget):
+    def __init__(self):
+        QtGui.QWidget.__init__(self)
+        self.key = PyKeyboard()
+        
+    def doSomething(self):
+        self.key.press_key(self.key.control_l_key)
+        self.key.release_key(self.key.control_l_key)
+
+    def run(self):
+        self.timer = QtCore.QTimer(self)
+        self.timer.timeout.connect(self.doSomething)
+        self.timer.start(59000)  # 59 sec
+        
+    def stop(self):
+        self.timer.stop()
 
 class TimerWindow(QtGui.QWidget):
     def __init__(self, parent=None):
@@ -25,6 +43,8 @@ class TimerWindow(QtGui.QWidget):
         
         self.setLayout(layout)
         self.resize(400, 400)
+        
+        self.screen_saver_preventer=ScreenSaverPreventer()
 
     def run(self, sec, countdown3):
         self.sec = sec
@@ -33,14 +53,16 @@ class TimerWindow(QtGui.QWidget):
         self.timer = QtCore.QTimer(self)
         self.timer.timeout.connect(self.update)
         self.timer.start(1001)  # Magic number
+        self.screen_saver_preventer.run()
 
     def stop(self):
         self.timer.stop()
         self.config_window = ConfigWindow()
         self.config_window.move(self.pos())
         self.config_window.show()
+        self.screen_saver_preventer.stop()
         self.close()
-            
+    
     def mainUpdateInit(self):
         self.setStyleSheet("\
         QPushButton {background-color:#fff; color:#49f;}\
